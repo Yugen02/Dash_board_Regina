@@ -3,11 +3,28 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-filepath = 'regina_dashboard\01_data_ingestion\BD COVID-19 PRELIMINAR ( MARTES 15 DE JUNIO 2021).xlsx'
 
+## TIPO DE PACIENTE, EDAD, TIPOS_EDAD, SEXO, FIS, REGION, DISTRITO, CORREGIMIENTO, INSTALACION, RESULTADO/LABORATORIO
+df = pd.read_csv(r'C:\Users\Efrain\Desktop\regina_dashboard\regina_dashboard\02_data_preparation\Data_limpia.csv')
+print(df.head(30))
 
-dataset = pd.read_excel(io = filepath)
-print(dataset)
-sns.set_theme(style="darkgrid")
-fig, ax = plt.subplots(figsize = (30, 30))
-sns.histplot(data = dataset, x ="RESULTADO 2", y="EDAD")
+regiones = pd.unique(df['CORREGIMIENTO'])
+
+count = []
+for prov in regiones:
+    b = df['CORREGIMIENTO']
+    df1 = df.loc[b == prov]
+    rows = len(df1.axes[0]) 
+    count.append(rows)
+
+print(regiones)
+print(count)
+
+data_regiones = pd.DataFrame({'Regiones': regiones,
+                            'Casos': count})
+
+print(data_regiones)
+
+data_regiones.to_csv(r'C:\Users\Efrain\Desktop\regina_dashboard\regina_dashboard\02_data_preparation\casos_CORREGIMIENTO.csv',index=False)
+# print(df1.count())
+

@@ -15,9 +15,17 @@ df = pd.DataFrame({
     "City": ["SF", "SF", "SF", "Montreal", "Montreal", "Montreal"]
 })
 
-fig = px.bar(df, x="Fruit", y="Amount", color="City", barmode="group")
+df1 = pd.read_csv(r'C:\Users\Efrain\Desktop\regina_dashboard\regina_dashboard\02_data_preparation\casos_CORREGIMIENTO.csv')
+df2 = pd.read_csv(r'C:\Users\Efrain\Desktop\regina_dashboard\regina_dashboard\02_data_preparation\casos_DISTRITO.csv')
+df3 = pd.read_csv(r'C:\Users\Efrain\Desktop\regina_dashboard\regina_dashboard\02_data_preparation\casos_region.csv')
 
-app.layout = html.Div(children=[
+fig1 = px.bar(df1, x="Regiones", y="Casos")
+fig2 = px.bar(df2, x="Regiones", y="Casos")
+fig3 = px.bar(df3, x="Regiones", y="Casos")
+
+app.layout = html.Div([
+
+    html.Div(children=[
     html.H1(children='Hello Dash'),
 
     html.Div(children='''
@@ -26,8 +34,24 @@ app.layout = html.Div(children=[
 
     dcc.Graph(
         id='example-graph',
-        figure=fig
+        figure=fig1
     )
+]),
+
+    html.Div(children=[
+    dcc.Graph(
+        id='example-graph1',
+        figure=fig2
+    )
+]),
+
+    html.Div(children=[
+    dcc.Graph(
+        id='example-graph2',
+        figure=fig3
+    )
+]),
+
 ])
 
 if __name__ == '__main__':
