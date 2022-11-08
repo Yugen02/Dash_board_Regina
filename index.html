@@ -7,22 +7,54 @@ df = pd.read_csv('https://raw.githubusercontent.com/plotly/datasets/master/gapmi
 df = pd.read_csv(r'C:\Users\Efrain\Desktop\regina_dashboard\regina_dashboard\02_data_preparation\Casos_Region_Exacta.csv')
 
 app = Dash(__name__)
+
+colors = {
+    'background': '#111111',
+    'text': '#7FDBFF'
+}
+
 fig2 = px.scatter(df, x=df['Region'],
                      y=df['Casos'],size="Casos",color="Distrito",hover_name=df["Corregimiento"],
                      size_max=40)
-app.layout = html.Div([
+
+fig2.update_layout(
+    plot_bgcolor=colors['background'],
+    paper_bgcolor=colors['background'],
+    font_color=colors['text']
+    )
+
+fig2.update_yaxes(title='NUMERO DE CASOS')
+
+app.layout = html.Div(style={'backgroundColor': colors['background']}, children=[
+
+        html.H1(
+        children='ANALISIS DEL NUMERO DE CASOS DE SARS-COVID19 POSITIVOS EN PANAMÁ',
+        style={
+            'textAlign': 'center',
+            'color': colors['text']
+        }
+    ),
+
+
 
         
     html.Div([
         dcc.Dropdown(
             sorted(df['Region'].unique()),
             'BOCAS DEL TORO',
-            id='xaxis-column'
+            id='xaxis-column',
+            style={
+            'textAlign': 'center',
+        }
         )
     ]
     ,style={'width': '45%', 'display': 'inline-block'}
     ),
 
+    html.Div(children='LAURENTINO CORTIZO COEN PREZIDENTE', style={
+        'textAlign': 'center',
+        'color': colors['text']
+    }),
 
     dcc.Graph(
         id='example-graph1'
@@ -54,9 +86,13 @@ def update_graph(xaxis_column_n):
                      labels = {'x':'Distrito','y':'Casos','color':'Distrito','hover_name':'Corregimiento','size':'Casos'}
                      )
 
-    fig.update_traces(text='Distrito', selector=dict(type='scatter'))
+    fig.update_layout(
+        plot_bgcolor=colors['background'],
+        paper_bgcolor=colors['background'],
+        font_color=colors['text']
+    )
 
-    fig.update_yaxes(title='Numero de Casos')
+    fig.update_yaxes(title='NUMERO DE CASOS')
 
     fig.update_xaxes(title=xaxis_column_n)
 
