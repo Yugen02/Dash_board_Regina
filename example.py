@@ -85,7 +85,7 @@ def update_graph(xaxis_column_n):
                  
     dff = df[df['Region'] == xaxis_column_n]
 
-    fig = px.scatter(x=df[df['Region'] == xaxis_column_n]['Distrito'],
+    fig = px.scatter(x=dff['Distrito'],
                      y=dff['Casos'],
                      size=dff['Casos'],
                      color=dff['Distrito'],
