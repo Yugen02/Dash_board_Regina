@@ -124,6 +124,7 @@ def variables(variable_x, variable_y):
             # print("CASOS {}".format(rows))
     data_variables = pd.DataFrame({'Variable_x': data_X, 'Variable_Y': data_Y,
                             'Casos': count})
+    data_variables = data_variables.sort_values(by=['Variable_x'])
     return data_variables
     # print(data_variables)
 
@@ -154,6 +155,7 @@ def update_graph(xaxis_column_n,yaxis_colum_n):
         paper_bgcolor=colors['background'],
         font_color=colors['text']
     )
+    fig.update_traces(marker_size=20)
 
     fig.update_yaxes(title = 'NUMERO DE CASOS')
 
