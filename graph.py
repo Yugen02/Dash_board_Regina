@@ -14,8 +14,9 @@ import chart_studio.tools as tls
 
 df = pd.read_csv('https://raw.githubusercontent.com/plotly/datasets/master/gapminderDataFiveYear.csv')
 df = pd.read_csv('https://raw.githubusercontent.com/Yugen02/Dash_board_Regina/master/regina_dashboard/02_data_preparation/Casos_Region_Exacta.csv')
-df2 = pd.read_csv('https://raw.githubusercontent.com/Yugen02/Dash_board_Regina/master/regina_dashboard/02_data_preparation/dataset/BD_COVID19_PRELIMINAR_MARTES_15_DE_JUNIO_2021.csv')
-del df2["Unnamed: 0"]
+df2 = pd.read_csv('https://raw.githubusercontent.com/Yugen02/Dash_board_Regina/Efrain/regina_dashboard/02_data_preparation/dataset/BD_COVID19_PRELIMINAR_MARTES_15_DE_JUNIO_2021.csv')
+
+# del df2["Unnamed: 0"]
 
 df2['DATE'] = pd.to_datetime(df2['FIS'], errors='coerce')
 
@@ -52,7 +53,7 @@ fig2.update_yaxes(title='NUMERO DE CASOS')
 app.layout = html.Div(style={'backgroundColor': colors['background']}, children=[
 
         html.H1(
-        children='ANALISIS DEL NUMERO DE CASOS DE SARS-COVID19 POSITIVOS EN PANAMÁ',
+        children='ANÁLISIS ESTADÍSTICO DEL COMPORTAMIENTO DEL SARS COVID 19 EN PANAMÁ',
         style={
             'textAlign': 'center',
             'color': colors['text']
@@ -95,7 +96,7 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
 
 
 
-    html.Div(children='LAURENTINO CORTIZO COEN PREZIDENTE', style={
+    html.Div(children='LAUREMTINO CORTI$O COÍN PREZIDENTE', style={
         'textAlign': 'center',
         'color': colors['text']
     }),
@@ -122,9 +123,9 @@ def variables(variable_x, variable_y):
             count.append(rows) 
             # print(df1)
             # print("CASOS {}".format(rows))
-    data_variables = pd.DataFrame({'Variable_x': data_X, 'Variable_Y': data_Y,
+    data_variables = pd.DataFrame({'x': data_X, 'y': data_Y,
                             'Casos': count})
-    data_variables = data_variables.sort_values(by=['Variable_x'])
+    data_variables = data_variables.sort_values(by=['x'])
     return data_variables
     # print(data_variables)
 
@@ -142,24 +143,39 @@ def update_graph(xaxis_column_n,yaxis_colum_n):
 
     # dff = df[df['Region'] == xaxis_column_n]
 
-    fig = px.scatter(datos, x=datos['Variable_x'],
+    fig = px.scatter(datos, x=datos['x'],
                      y=datos['Casos'],
-                     hover_name=datos['Variable_Y'],
-                     color=datos['Variable_Y'], 
+                     hover_name=datos['y'],
+                     color=datos['y'], 
                      size_max=100,
-                     labels = {'x':'x','y':'y','color':yaxis_colum_n,'hover_name':'Corregimiento'}
+                     labels = {'x':xaxis_column_n,'y':yaxis_colum_n,'color':yaxis_colum_n,'hover_name':'Corregimiento'}
                      )
+
+
+
+    fig.add_layout_image(
+        dict(
+            source="https://pbs.twimg.com/media/DnQNUONV4AAyNCH.jpg:large",
+            xref="paper", yref="paper",
+            x=1, y=1.05,
+            sizex=0.2, sizey=0.2,
+            xanchor="right", yanchor="bottom"
+        )
+    )
 
     fig.update_layout(
         plot_bgcolor=colors['background'],
         paper_bgcolor=colors['background'],
         font_color=colors['text']
     )
-    fig.update_traces(marker_size=20)
+    
+    fig.update_traces(marker_size=10)
 
     fig.update_yaxes(title = 'NUMERO DE CASOS')
 
     fig.update_xaxes(title = xaxis_column_n)
+
+
 
     # fig.update_yaxes(title=[xaxis_column_n]['Casos'])
 
