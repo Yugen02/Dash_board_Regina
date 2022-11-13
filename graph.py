@@ -2,6 +2,7 @@ from dash import Dash, dcc, html, Input, Output
 import plotly.express as px
 import pandas as pd
 import chart_studio
+import datetime
 
 username = 'Yugen02'
 api_key = 'Vvda56TicCWGrr6OLqd8'
@@ -14,6 +15,20 @@ import chart_studio.tools as tls
 df = pd.read_csv('https://raw.githubusercontent.com/plotly/datasets/master/gapminderDataFiveYear.csv')
 df = pd.read_csv('https://raw.githubusercontent.com/Yugen02/Dash_board_Regina/master/regina_dashboard/02_data_preparation/Casos_Region_Exacta.csv')
 df2 = pd.read_csv('https://raw.githubusercontent.com/Yugen02/Dash_board_Regina/master/regina_dashboard/02_data_preparation/dataset/BD_COVID19_PRELIMINAR_MARTES_15_DE_JUNIO_2021.csv')
+del df2["Unnamed: 0"]
+
+df2['DATE'] = pd.to_datetime(df2['FIS'], errors='coerce')
+
+df2['MES'] = df2['DATE'].dt.month_name()
+df2['SEMANA'] = df2['DATE'].dt.isocalendar().week
+
+
+
+## LISTA DE DROP DOWN
+
+drop_D = ['TIPO DE PACIENTE','EDAD','GRUPO DE EDAD','SEXO','REGION','DISTRITO','MES','SEMANA']
+
+
 
 app = Dash(__name__)
 
@@ -49,7 +64,7 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
         
         html.Div([
             dcc.Dropdown(
-                sorted(df2.axes[1].unique()),
+                sorted(drop_D),
                 'GRUPO DE EDAD',
                 id='xaxis-column',
                 style={
@@ -62,7 +77,7 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
 
         html.Div([
             dcc.Dropdown(
-                sorted(df2.axes[1].unique()),
+                sorted(drop_D),
                 'SEXO',
                 id='yaxis-column',
                 style={
@@ -126,8 +141,13 @@ def update_graph(xaxis_column_n,yaxis_colum_n):
 
     # dff = df[df['Region'] == xaxis_column_n]
 
-    fig = px.scatter(datos , x=datos['Variable_x'],
-                        y=datos['Casos'],hover_name=datos['Variable_Y'],color=datos['Variable_Y'], size_max=100)
+    fig = px.scatter(datos, x=datos['Variable_x'],
+                     y=datos['Casos'],
+                     hover_name=datos['Variable_Y'],
+                     color=datos['Variable_Y'], 
+                     size_max=100,
+                     labels = {'x':'x','y':'y','color':yaxis_colum_n,'hover_name':'Corregimiento'}
+                     )
 
     fig.update_layout(
         plot_bgcolor=colors['background'],
@@ -135,9 +155,9 @@ def update_graph(xaxis_column_n,yaxis_colum_n):
         font_color=colors['text']
     )
 
-    fig.update_yaxes(title='NUMERO DE CASOS')
+    fig.update_yaxes(title = 'NUMERO DE CASOS')
 
-    # fig.update_xaxes(title=xaxis_column_n)
+    fig.update_xaxes(title = xaxis_column_n)
 
     # fig.update_yaxes(title=[xaxis_column_n]['Casos'])
 
