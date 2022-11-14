@@ -24,6 +24,28 @@ df2['MES'] = df2['DATE'].dt.month_name()
 df2['SEMANA'] = df2['DATE'].dt.isocalendar().week
 
 
+def variables(variable_x, variable_y):
+    data_X = []
+    data_Y = []
+    count = []
+    for v_y in pd.unique(variable_y):
+        for v_x in pd.unique(variable_x):
+            df1 = df2.loc[(variable_x == v_x) & (variable_y == v_y)]
+            rows = len(df1.axes[0])
+            
+            data_X.append(v_x)
+            data_Y.append(v_y)
+            count.append(rows) 
+            # print(df1)
+            # print("CASOS {}".format(rows))
+    data_variables = pd.DataFrame({'x': data_X, 'y': data_Y,
+                            'Casos': count})
+    data_variables = data_variables.sort_values(by=['x'])
+    return data_variables
+    # print(data_variables)
+
+
+
 
 ## LISTA DE DROP DOWN
 
@@ -38,17 +60,28 @@ colors = {
     'text': '#7FDBFF'
 }
 
-fig2 = px.scatter(df, x=df['Region'],
-                     y=df['Casos'],size="Casos",color="Distrito",hover_name=df["Corregimiento"],
-                     size_max=40)
+datos = variables(df2['REGION'],df2['SEXO'])
 
-fig2.update_layout(
-    plot_bgcolor=colors['background'],
-    paper_bgcolor=colors['background'],
-    font_color=colors['text']
-    )
 
-fig2.update_yaxes(title='NUMERO DE CASOS')
+lat = [9.4165,9.4165, 8.3971129,8.3971129,8.4604873,8.4604873,9.3553005,9.3553005,8.2158991,8.2158991,9.057822904338451,9.057822904338451,7.8432774,7.8432774,7.8773471,7.8773471,8.999729497842978,8.999729497842978,8.48621,8.48621,9.0329592,9.0329592,9.078862,9.078862,8.9898564,8.9898564,9.0551061,9.0551061,8.2414131,8.2414131]
+lon= [-82.5207,-82.5207,-82.3223443,-82.3223443,-80.4305652,-80.4305652,-79.8974085,-79.8974085,-78.0172551,-78.0172551,-77.89447750948364,-77.89447750948364,-80.7587705,-80.7587705,-80.4290617,-80.4290617,-79.51171356618619,-79.51171356618619,-81.73081,-81.73081,-79.4710178,-79.4710178,-79.4719702,-79.4719702,-79.6793267,-79.6793267,-79.4933063,-79.4933063,8.2414131,8.2414131]
+
+datos.insert(3, "Longitud", lon, True)
+datos.insert(4, "Latitud", lat, True)
+# print(datos)
+
+px.set_mapbox_access_token('pk.eyJ1IjoieXVnZW4wMiIsImEiOiJjbGFnMHJiY3AwdWlrM25vOXRwMG1uaHA1In0.6nnPpOKyl5QsmfGBNcb75Q')
+
+fig2 = px.scatter_mapbox(datos,
+                        lon = datos['Longitud'],
+                        lat = datos['Latitud'],
+                        zoom = 5,
+                        hover_name=datos['y'],
+                        color = datos['x'],
+                        size = datos['Casos'],
+                        size_max=75
+                        )
+
 
 app.layout = html.Div(style={'backgroundColor': colors['background']}, children=[
 
@@ -103,31 +136,18 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
 
     dcc.Graph(
         id='example-graph1'
+    ),
+
+
+    dcc.Graph(
+        id='example-graph2',
+        figure=fig2
     )
 
 ])
 
 
 
-def variables(variable_x, variable_y):
-    data_X = []
-    data_Y = []
-    count = []
-    for v_y in pd.unique(variable_y):
-        for v_x in pd.unique(variable_x):
-            df1 = df2.loc[(variable_x == v_x) & (variable_y == v_y)]
-            rows = len(df1.axes[0])
-            
-            data_X.append(v_x)
-            data_Y.append(v_y)
-            count.append(rows) 
-            # print(df1)
-            # print("CASOS {}".format(rows))
-    data_variables = pd.DataFrame({'x': data_X, 'y': data_Y,
-                            'Casos': count})
-    data_variables = data_variables.sort_values(by=['x'])
-    return data_variables
-    # print(data_variables)
 
 
 
@@ -169,7 +189,7 @@ def update_graph(xaxis_column_n,yaxis_colum_n):
         font_color=colors['text']
     )
     
-    fig.update_traces(marker_size=10)
+    fig.update_traces(marker_size=15)
 
     fig.update_yaxes(title = 'NUMERO DE CASOS')
 
@@ -180,7 +200,6 @@ def update_graph(xaxis_column_n,yaxis_colum_n):
     # fig.update_yaxes(title=[xaxis_column_n]['Casos'])
 
     return fig
-
 
 if __name__ == '__main__':
     app.run_server(debug=True)
