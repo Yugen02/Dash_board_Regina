@@ -25,6 +25,9 @@ fig2 = px.scatter(df, x=df['Region'],
                      y=df['Casos'],size="Casos",color="Distrito",hover_name=df["Corregimiento"],
                      size_max=40)
 
+py.plotly(fig2,filename = 'prueba',auto_open = True)
+
+
 fig2.update_layout(
     plot_bgcolor=colors['background'],
     paper_bgcolor=colors['background'],
@@ -85,7 +88,7 @@ def update_graph(xaxis_column_n):
                  
     dff = df[df['Region'] == xaxis_column_n]
 
-    fig = px.scatter(x=df[df['Region'] == xaxis_column_n]['Distrito'],
+    fig = px.scatter(x=dff['Distrito'],
                      y=dff['Casos'],
                      size=dff['Casos'],
                      color=dff['Distrito'],
@@ -108,7 +111,7 @@ def update_graph(xaxis_column_n):
 
     return fig
 
-py.plotly(fig2,filename = 'prueba',auto_open = True)
+
 
 if __name__ == '__main__':
     app.run_server(debug=True)
