@@ -3,7 +3,7 @@ import plotly.express as px
 import pandas as pd
 import chart_studio
 import datetime
-from functions import locations
+# from functions import locations
 
 username = 'Yugen02'
 api_key = 'Vvda56TicCWGrr6OLqd8'
