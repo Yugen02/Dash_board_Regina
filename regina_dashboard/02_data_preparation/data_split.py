@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 
+
 ## TIPO DE PACIENTE, EDAD, TIPOS_EDAD, SEXO, FIS, REGION, DISTRITO, CORREGIMIENTO, INSTALACION, RESULTADO/LABORATORIO
 df = pd.read_csv('https://raw.githubusercontent.com/Yugen02/Dash_board_Regina/master/regina_dashboard/02_data_preparation/dataset/BD_COVID19_PRELIMINAR_MARTES_15_DE_JUNIO_2021.csv')
 df['year'] = pd.DatetimeIndex(df['FIS']).year
