@@ -86,7 +86,7 @@ fig2 = px.scatter_mapbox(datos,
 app.layout = html.Div(style={'backgroundColor': colors['background']}, children=[
 
         html.H1(
-        children='ANÁLISIS ESTADÍSTICO DEL COMPORTAMIENTO DEL COVID-19 EN PANAMÁ',
+        children='ANÁLISIS ESTADÍSTICO DEL COMPORTAMIENTO COVID-19 EN PANAMÁ',
         style={
             'textAlign': 'center',
             'color': colors['text']
