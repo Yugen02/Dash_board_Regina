@@ -86,7 +86,7 @@ fig2 = px.scatter_mapbox(datos,
 app.layout = html.Div(style={'backgroundColor': colors['background']}, children=[
 
         html.H1(
-        children='ANÁLISIS ESTADÍSTICO DEL COMPORTAMIENTO DEL SARS COVID 19 EN PANAMÁ',
+        children='ANÁLISIS ESTADÍSTICO DEL COMPORTAMIENTO DEL COVID-19 EN PANAMÁ',
         style={
             'textAlign': 'center',
             'color': colors['text']
@@ -129,7 +129,7 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
 
 
 
-    html.Div(children='LAUREMTINO CORTI$O COÍN PREZIDENTE', style={
+    html.Div(children='The kingdom of Heaven is a condition of the heart, not something that comes upon the earth or after death', style={
         'textAlign': 'center',
         'color': colors['text']
     }),
