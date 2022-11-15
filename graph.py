@@ -89,7 +89,7 @@ colors = {
 app.layout = html.Div(style={'backgroundColor': colors['background']}, children=[
 
         html.H1(
-        children='ANÁLISIS ESTADÍSTICO DEL COMPORTAMIENTO DEL COVID-19 EN PANAMÁ',
+        children='ANÁLISIS ESTADÍSTICO DEL COMPORTAMIENTO COVID-19 EN PANAMÁ',
         style={
             'textAlign': 'center',
             'color': colors['text']
@@ -208,10 +208,10 @@ def update_graph(xaxis_column_n,yaxis_colum_n):
 
     fig.add_layout_image(
         dict(
-            source="https://pbs.twimg.com/media/DnQNUONV4AAyNCH.jpg:large",
+            source="https://okdiario.com/img/2017/03/29/aguila-calva-datos-interesantes-a-620x349.jpg",
             xref="paper", yref="paper",
             x=1, y=1.05,
-            sizex=0.2, sizey=0.2,
+            sizex=0.9, sizey=0.8,
             xanchor="right", yanchor="bottom"
         )
     )
