@@ -12,8 +12,8 @@ chart_studio.tools.set_credentials_file(username=username,api_key=api_key)
 import chart_studio as py
 import chart_studio.tools as tls
 
-df = pd.read_csv('https://raw.githubusercontent.com/plotly/datasets/master/gapminderDataFiveYear.csv')
-df = pd.read_csv('https://raw.githubusercontent.com/Yugen02/Dash_board_Regina/master/regina_dashboard/02_data_preparation/Casos_Region_Exacta.csv')
+# df = pd.read_csv('https://raw.githubusercontent.com/plotly/datasets/master/gapminderDataFiveYear.csv')
+# df = pd.read_csv('https://raw.githubusercontent.com/Yugen02/Dash_board_Regina/master/regina_dashboard/02_data_preparation/Casos_Region_Exacta.csv')
 df2 = pd.read_csv('https://raw.githubusercontent.com/Yugen02/Dash_board_Regina/Efrain/regina_dashboard/02_data_preparation/dataset/BD_COVID19_PRELIMINAR_MARTES_15_DE_JUNIO_2021.csv')
 
 # del df2["Unnamed: 0"]
@@ -175,10 +175,10 @@ def update_graph(xaxis_column_n,yaxis_colum_n):
 
     fig.add_layout_image(
         dict(
-            source="https://pbs.twimg.com/media/DnQNUONV4AAyNCH.jpg:large",
+            source="https://okdiario.com/img/2017/03/29/aguila-calva-datos-interesantes-a-620x349.jpg",
             xref="paper", yref="paper",
             x=1, y=1.05,
-            sizex=0.2, sizey=0.2,
+            sizex=0.9, sizey=0.8,
             xanchor="right", yanchor="bottom"
         )
     )
