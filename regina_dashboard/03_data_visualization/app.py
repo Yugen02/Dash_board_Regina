@@ -20,7 +20,7 @@ df2 = pd.read_csv(r'C:\Users\Efrain\Desktop\regina_dashboard\regina_dashboard\02
 df3 = pd.read_csv(r'C:\Users\Efrain\Desktop\regina_dashboard\regina_dashboard\02_data_preparation\casos_region.csv')
 
 fig1 = px.bar(df1, x="Regiones", y="Casos")
-fig2 = px.bar(df2, x="Regiones", y="Casos")
+fig2 = px.bar(df2, x="Regiones", y="Casos1_")
 fig3 = px.bar(df3, x="Regiones", y="Casos")
 
 app.layout = html.Div([
